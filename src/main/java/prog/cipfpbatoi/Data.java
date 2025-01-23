@@ -1,4 +1,9 @@
 package prog.cipfpbatoi;
+
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.StringTokenizer;
+
 /**
  *
  * @author batoi
@@ -14,7 +19,7 @@ public class Data {
      *  Inicializa una fecha a la fecha del sistema
      */
     public Data() {
-        
+        Calendar fechaDelSistema = Calendar.getInstance();
     }
 
     /**
@@ -24,15 +29,26 @@ public class Data {
      * @param any
      */
     public Data(int dia, int mes, int any) {
+        this.dia = dia;
+        this.mes = mes;
+        this.any = any;
     }
 
     /**
      * Inicializa la fecha a partir de otra pasada en formato String dd/mm/yyyy
      *
-     * Deberemos trocearlas de forma que asignemos el día més y año a cada uno de los atributoe
+     * Deberemos trocearlas de forma que asignemos el día més y año a cada uno de los atributos
      * @param fecha
      */
     public Data(String fecha) {
+        StringTokenizer st = new StringTokenizer(fecha, "/");
+        int tokenDia = Integer.parseInt(st.nextToken());
+        int tokenMes = Integer.parseInt(st.nextToken());
+        int tokenAny = Integer.parseInt(st.nextToken());
+        
+        this.dia = tokenDia;
+        this.mes = tokenMes;
+        this.any = tokenAny;
     }
 
     /**
@@ -42,7 +58,9 @@ public class Data {
      * @param any
      */
     public void set(int dia, int mes, int any) {
-        
+        this.dia = dia;
+        this.mes = mes;
+        this.any = any;
     }
 
     /**
@@ -52,7 +70,8 @@ public class Data {
      * @return
      */
     public Data copy() {
-        return null;
+        Data fecha = new Data();
+        return fecha;
     }
 
     /**
@@ -83,21 +102,24 @@ public class Data {
      * Muestra por pantalla la fecha en formato español dd-mm-yyyy
      */
     public void mostrarEnFormatES()  {
-        
+        DateTimeFormatter fechaFormatoEs = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        System.out.println(fechaFormatoEs);
     }
 
     /**
      * Muestra por pantalla la fecha en formato inglés yyyy-mm-dd
      */
     public void mostrarEnFormatGB() {
-        
+        DateTimeFormatter fechaFormatoIn = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        System.out.println(fechaFormatoIn);
     }
 
     /**
      * Muestra por pantalla la fecha en formato texto dd-mmmmm-yyyy
      */
     public void mostrarEnFormatText() {
-        
+        DateTimeFormatter fechaFormatoText = DateTimeFormatter.ofPattern("dd-mm-yyyy");
+        System.out.println(fechaFormatoText);
     }
 
     /**
@@ -108,7 +130,21 @@ public class Data {
      * @return boolean
      */
     public boolean isIgual(Data fecha) {
-        return false;
+        int contador = 0;
+        
+        if (fecha.dia == this.dia) {
+            contador=+1;
+        }
+        
+        if (fecha.mes == this.mes) {
+            contador=+1;
+        }
+        
+        if (fecha.any == this.any) {
+            contador=+1;
+        }
+        
+        return contador == 3;
     }
 
     /**
