@@ -79,7 +79,7 @@ public class Data {
      * @return
      */
     public Data copy() {
-        Data fecha = new Data();
+        Data fecha = new Data(this.dia, this.mes, this.any);
         return fecha;
     }
 
