@@ -1,6 +1,5 @@
 package prog.cipfpbatoi;
 
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
@@ -98,17 +97,16 @@ public class Data {
     private int getDiesTranscorregutsEnAny(){
         
         
-        
         return -1;
     }
     
-   // private int getDiesTranscorregutsOrigen(){
-   //    int diaOrigen = 1;
-   //    int mesOrigen = 1;
-   //   int anyOrigen = 1;
+    private int getDiesTranscorregutsOrigen(){
+        int diaOrigen = 1;
+        int mesOrigen = 1;
+        int anyOrigen = 1;  //Hacer primero el isBisiesto
    
-   //     return 1;
-   //}
+        return -1;
+    }
     
     public String getDiaSetmana() {
         //------------------
@@ -148,15 +146,20 @@ public class Data {
     }
 
     public static boolean isBisiesto(int any) {
-        return false;
+        return any % 4 == 0 && any % 100 != 0 ||
+               any % 4 == 0 && any % 100 == 0 && any % 400 == 0;
     }
 
     public static int getDiesMes(int mes, int any) {
-
-        return -1;
+        return switch (mes) {
+            case 1, 3, 5, 7, 8, 10, 12 -> 31;
+            case 4, 6, 9, 11 -> 30;
+            case 2 -> isBisiesto(any) ? 29 : 28;
+            default -> 30;
+        };
     }
 
     public static int getDiesAny(int any) {
-        return -1;
+        return isBisiesto(any) ? 366 : 365;
     }
 }
