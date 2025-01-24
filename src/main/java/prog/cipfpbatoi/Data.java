@@ -22,7 +22,7 @@ public class Data {
     public Data() {
         Calendar fechaDelSistema = new GregorianCalendar();
         this.dia = fechaDelSistema.get(Calendar.DAY_OF_MONTH);
-        this.mes = fechaDelSistema.get(Calendar.MONTH)+1;
+        this.mes = fechaDelSistema.get(Calendar.MONTH) + 1;
         this.any = fechaDelSistema.get(Calendar.YEAR);
     }
 
@@ -143,21 +143,9 @@ public class Data {
      * @return boolean
      */
     public boolean isIgual(Data fecha) {
-        int contador = 0;
-
-        if (fecha.dia == this.dia) {
-            contador = +1;
-        }
-
-        if (fecha.mes == this.mes) {
-            contador = +1;
-        }
-
-        if (fecha.any == this.any) {
-            contador = +1;
-        }
-
-        return contador == 3;
+        return fecha.dia == this.dia
+               && fecha.mes == this.mes
+               && fecha.any == this.any;
     }
 
     /**
