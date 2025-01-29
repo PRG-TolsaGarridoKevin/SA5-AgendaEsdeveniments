@@ -17,8 +17,18 @@ public class GestorIO {
         return respuesta;
     }
   
-    public static boolean solicitarConfirmacio(String missatge){
-        return true;
+    public static boolean solicitarConfirmacio(String missatge){  
+        boolean bucleActivo = true;
+        do{
+            System.out.println(missatge);
+            String respuesta = scanner.next();
+            if(respuesta.equalsIgnoreCase("s")||respuesta.equalsIgnoreCase("n")){
+                bucleActivo = false;
+                return true; 
+            }else{
+                return false;
+            }
+        }while(bucleActivo);
     }
     
     public static void tancar(){
