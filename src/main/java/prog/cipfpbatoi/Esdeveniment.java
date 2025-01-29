@@ -25,9 +25,5 @@ public class Esdeveniment {
         long diasRestantes = 30;
     }
     
-    //Metododos necesarios ----
-    
-  
-    
-    
+    //Metododos necesarios -----
 }
