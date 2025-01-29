@@ -95,24 +95,39 @@ public class Data {
     }
     
     private int getDiesTranscorregutsEnAny(){
+        int diasTranscurridos = 0;
+        for (int i = 1; i < this.mes; i++) {
+            diasTranscurridos += getDiesMes(i, this.any);
+        }
+        diasTranscurridos += this.dia;
         
-        
-        return -1;
+        return diasTranscurridos;
     }
     
     private int getDiesTranscorregutsOrigen(){
-        int diaOrigen = 1;
-        int mesOrigen = 1;
-        int anyOrigen = 1;  //Hacer primero el isBisiesto
-   
-        return -1;
+        int diasTranscurridos = 0;
+        for (int any = 1; any < this.any; any++) {
+            diasTranscurridos += getDiesAny(any);
+        }
+        diasTranscurridos += getDiesTranscorregutsEnAny();
+        
+        return diasTranscurridos;
     }
     
     public String getDiaSetmana() {
-        //------------------
-        //Pagina 6 metodos privados necesarios
-        //-------------------
-        return null;
+         Calendar calendario = new GregorianCalendar(this.any, this.mes - 1, this.dia);
+    int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
+
+    switch (diaSemana) {
+        case Calendar.SUNDAY: return "Diumenge";
+        case Calendar.MONDAY: return "Dilluns";
+        case Calendar.TUESDAY: return "Dimarts";
+        case Calendar.WEDNESDAY: return "Dimecres";
+        case Calendar.THURSDAY: return "Dijous";
+        case Calendar.FRIDAY: return "Divendres";
+        case Calendar.SATURDAY: return "Dissabte";
+        default: return "Dia no encontrad";
+        }
     }
 
     public boolean isFestiu() {
