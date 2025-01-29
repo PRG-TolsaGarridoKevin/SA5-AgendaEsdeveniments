@@ -115,22 +115,26 @@ public class Data {
     }
     
     public String getDiaSetmana() {
-         Calendar calendario = new GregorianCalendar(this.any, this.mes - 1, this.dia);
-    int diaSemana = calendario.get(Calendar.DAY_OF_WEEK);
+        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
+    int diaSemana = fecha.get(Calendar.DAY_OF_WEEK);
 
     switch (diaSemana) {
-        case Calendar.SUNDAY: return "Diumenge";
         case Calendar.MONDAY: return "Dilluns";
         case Calendar.TUESDAY: return "Dimarts";
         case Calendar.WEDNESDAY: return "Dimecres";
         case Calendar.THURSDAY: return "Dijous";
         case Calendar.FRIDAY: return "Divendres";
         case Calendar.SATURDAY: return "Dissabte";
-        default: return "Dia no encontrad";
+        case Calendar.SUNDAY: return "Diumenge";
+        default: return "Dia no encontrado";
         }
     }
 
     public boolean isFestiu() {
+        if (getDiaSetmana().equalsIgnoreCase("Dissabte") &&
+            getDiaSetmana().equalsIgnoreCase("Diumenge")) {
+            return true;
+        }
         return false;
     }
 
