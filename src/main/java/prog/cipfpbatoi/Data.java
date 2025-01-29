@@ -136,22 +136,38 @@ public class Data {
             return true;
         }else{
             return false;
-        }
-        
+        }    
     }
 
     public int getNumeroSetmana() {
-        return -1;
-
+        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
+        return fecha.get(Calendar.WEEK_OF_YEAR);
     }
 
     public Data afegir(long numDias) {
+        if (numDias <= 0) {
+            return new Data();
+        }
+        
+        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
+        fecha.add(Calendar.DAY_OF_MONTH, (int) numDias);
 
-        return null;
+        return new Data(fecha.get(Calendar.DAY_OF_MONTH), 
+                        fecha.get(Calendar.MONTH) + 1, 
+                        fecha.get(Calendar.YEAR));
     }
 
     public Data restar(long numDias) {
-        return null;
+        if (numDias <= 0) {
+            return new Data();
+        }
+        
+        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
+        fecha.add(Calendar.DAY_OF_MONTH, (int) -numDias);
+
+        return new Data(fecha.get(Calendar.DAY_OF_MONTH), 
+                        fecha.get(Calendar.MONTH) + 1, 
+                        fecha.get(Calendar.YEAR));
     }
 
     public boolean isCorrecta() {
