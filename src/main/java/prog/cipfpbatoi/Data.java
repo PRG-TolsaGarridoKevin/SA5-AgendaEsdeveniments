@@ -171,15 +171,29 @@ public class Data {
     }
 
     public boolean isCorrecta() {
-        return false;
+        if (this.mes < 1 || this.mes > 12) {
+            return false; 
+        }
+        
+        int diasDelMes = getDiesMes(this.mes, this.any);
+        if (this.dia < 1 || this.dia > diasDelMes) {
+            return false;
+        }
+        return true;
     }
 
     public long getDiesDeDiferencia(Data data) {
-        return -1L;
+        long diasTranscurridosActual = getDiesTranscorregutsOrigen();
+        long diasTranscurridosDataProporcionada = data.getDiesTranscorregutsOrigen();
+        long diferenciaDias = diasTranscurridosActual - diasTranscurridosDataProporcionada;
+
+        return diferenciaDias;
     }
 
     public boolean esPosteriorA(Data data) {
-        return false;
+        long diasTranscurridosActual = getDiesTranscorregutsOrigen();
+        long diasTranscurridosDataProporcionada = data.getDiesTranscorregutsOrigen();
+        return diasTranscurridosActual > diasTranscurridosDataProporcionada;
     }
 
     public static boolean isBisiesto(int any) {
