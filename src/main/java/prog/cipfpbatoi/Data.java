@@ -148,13 +148,14 @@ public class Data {
     }
 
     public int getNumeroSetmana() {
-       
-        return -1;
-        //
-        //
-        //     Falta  por solucionar 
-        //
-        //
+        int diasTranscurridos = getDiesTranscorregutsEnAny();
+        Calendar fechaInicio = new GregorianCalendar(this.any, Calendar.JANUARY, 1);
+        int primerDiaDeLaSemana = fechaInicio.get(Calendar.DAY_OF_WEEK) -1;
+        int primerLunes = (primerDiaDeLaSemana == 0)?1:(8-primerDiaDeLaSemana);
+        if (diasTranscurridos < primerLunes) {
+            return 1;
+        }   
+        return ((diasTranscurridos - primerLunes) / 7 ) +2;
     }
 
     public Data afegir(long numDias) {

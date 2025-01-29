@@ -7,8 +7,8 @@ public class GestorIO {
     
     public static int llegirEnter(String missatge){
         System.out.println(missatge);
-        //int respuesta = ;;
-        return -1;
+        int respuesta = scanner.nextInt();
+        return respuesta;
     }
     
     public static String llegirText(String missatge){
