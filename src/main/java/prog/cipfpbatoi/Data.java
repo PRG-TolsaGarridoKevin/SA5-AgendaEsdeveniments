@@ -131,11 +131,13 @@ public class Data {
     }
 
     public boolean isFestiu() {
-        if (getDiaSetmana().equalsIgnoreCase("Dissabte") &&
+        if (getDiaSetmana().equalsIgnoreCase("Dissabte") ||
             getDiaSetmana().equalsIgnoreCase("Diumenge")) {
             return true;
+        }else{
+            return false;
         }
-        return false;
+        
     }
 
     public int getNumeroSetmana() {
