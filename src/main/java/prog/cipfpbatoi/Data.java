@@ -5,6 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.StringTokenizer;
 
 public class Data {
+    
+    private String DILLUNS = "Dilluns";
+    private String DIMARTS = "Dimarts";
+    private String DIMECRES = "Dimecres";
+    private String DIJOUS = "Dijous";
+    private String DIVENDRES = "Divendres";
+    private String DISSABTE = "Dissabte";
+    private String DIUMENGE = "Diumenge";
 
     private int dia;
     private int mes;
@@ -119,20 +127,20 @@ public class Data {
     int diaSemana = fecha.get(Calendar.DAY_OF_WEEK);
 
     switch (diaSemana) {
-        case Calendar.MONDAY: return "Dilluns";
-        case Calendar.TUESDAY: return "Dimarts";
-        case Calendar.WEDNESDAY: return "Dimecres";
-        case Calendar.THURSDAY: return "Dijous";
-        case Calendar.FRIDAY: return "Divendres";
-        case Calendar.SATURDAY: return "Dissabte";
-        case Calendar.SUNDAY: return "Diumenge";
+        case Calendar.MONDAY: return DILLUNS;
+        case Calendar.TUESDAY: return DIMARTS;
+        case Calendar.WEDNESDAY: return DIMECRES;
+        case Calendar.THURSDAY: return DIJOUS;
+        case Calendar.FRIDAY: return DIVENDRES;
+        case Calendar.SATURDAY: return DISSABTE;
+        case Calendar.SUNDAY: return DIUMENGE;
         default: return "Dia no encontrado";
         }
     }
 
     public boolean isFestiu() {
-        if (getDiaSetmana().equalsIgnoreCase("Dissabte") ||
-            getDiaSetmana().equalsIgnoreCase("Diumenge")) {
+        if (getDiaSetmana().equalsIgnoreCase(DISSABTE) ||
+            getDiaSetmana().equalsIgnoreCase(DIUMENGE)) {
             return true;
         }else{
             return false;
@@ -140,8 +148,13 @@ public class Data {
     }
 
     public int getNumeroSetmana() {
-        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
-        return fecha.get(Calendar.WEEK_OF_YEAR);
+       
+        return -1;
+        //
+        //
+        //     Falta  por solucionar 
+        //
+        //
     }
 
     public Data afegir(long numDias) {
