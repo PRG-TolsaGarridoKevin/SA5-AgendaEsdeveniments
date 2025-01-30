@@ -8,6 +8,7 @@ public class Esdeveniment {
     public Esdeveniment(TipusEsdeveniment tipusEsdeveniment, String notaDescriptiva, Data fechaEsdeveniment) {
         this.tipusEsdeveniment = tipusEsdeveniment;
         this.notaDescriptiva = notaDescriptiva;
+        this.fechaEsdeveniment = fechaEsdeveniment;
         long diasRestantes = this.fechaEsdeveniment.getDiesDeDiferencia(fechaEsdeveniment);
     }
     
@@ -15,6 +16,7 @@ public class Esdeveniment {
         this.tipusEsdeveniment = tipusEsdeveniment;
         this.notaDescriptiva = notaDescriptiva;
         this.ubicacion = ubicacion;
+        this.fechaEsdeveniment = fechaEsdeveniment;
         long diasRestantes = this.fechaEsdeveniment.getDiesDeDiferencia(fechaEsdeveniment);
     }
 
@@ -22,6 +24,7 @@ public class Esdeveniment {
         this.tipusEsdeveniment = tipusEsdeveniment;
         this.notaDescriptiva = notaDescriptiva;
         this.ubicacion = ubicacion;
+        this.fechaEsdeveniment = fechaEsdeveniment;
         long diasRestantes = 30;
     }
     
@@ -30,9 +33,12 @@ public class Esdeveniment {
     public static void mostrarEsdeveniment(Esdeveniment esdeveniment){
         Data fechaActual = new Data();
         if (esdeveniment.fechaEsdeveniment.esPosteriorA(fechaActual)) {
-            System.out.printf("%s (%s) -> %s - %s",esdeveniment.tipusEsdeveniment,esdeveniment.notaDescriptiva, esdeveniment.ubicacion, esdeveniment.fechaEsdeveniment); 
+           
+            System.out.printf("%s (%s) -> %s - Data: ",esdeveniment.tipusEsdeveniment,esdeveniment.notaDescriptiva, esdeveniment.ubicacion);
+            esdeveniment.fechaEsdeveniment.mostrarEnFormatES();
         }else{
-            System.out.printf("%s (%s) -> Ja ha tingut lloc el dia %s",esdeveniment.tipusEsdeveniment,esdeveniment.notaDescriptiva, esdeveniment.fechaEsdeveniment);
+            System.out.printf("%s (%s) -> Ja ha tingut lloc el dia ",esdeveniment.tipusEsdeveniment,esdeveniment.notaDescriptiva);
+            esdeveniment.fechaEsdeveniment.mostrarEnFormatES();
         }
     }
     
@@ -44,6 +50,8 @@ public class Esdeveniment {
         }
         System.out.println("Cambio de fecha realizado correctamente");
     }
+    
+    
     
     
     
