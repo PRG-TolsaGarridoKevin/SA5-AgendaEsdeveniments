@@ -7,6 +7,9 @@ public class Agenda {
     private Esdeveniment esdeveniment3;
 
     public Agenda() {
+        this.esdeveniment1 = null;
+        this.esdeveniment2 = null;
+        this.esdeveniment3 = null;
     }
 
     public void afegirEsdeveniment(Esdeveniment nouEsdeveniment) {
@@ -83,7 +86,7 @@ public class Agenda {
         }
 
         if (!hayEventos) {
-            System.out.println("No hi ha esdeveniments registrats en la agenda.");
+            System.out.println("No hi ha esdeveniments registrats en la agenda");
         }
     }
 }
