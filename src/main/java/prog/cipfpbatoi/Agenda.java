@@ -63,4 +63,27 @@ public class Agenda {
         return esdevenimentResultat;
     }
 
+    public void mostrarEsdeveniments() {
+        boolean hayEventos = false;
+
+        if (esdeveniment1 != null) {
+            System.out.print("Esdeveniment 1: ");
+            esdeveniment1.mostrarEsdeveniment(esdeveniment1);
+            hayEventos = true;
+        }
+        if (esdeveniment2 != null) {
+            System.out.print("Esdeveniment 2: ");
+            esdeveniment2.mostrarEsdeveniment(esdeveniment2);
+            hayEventos = true;
+        }
+        if (esdeveniment3 != null) {
+            System.out.print("Esdeveniment 3: ");
+            esdeveniment3.mostrarEsdeveniment(esdeveniment3);
+            hayEventos = true;
+        }
+
+        if (!hayEventos) {
+            System.out.println("No hi ha esdeveniments registrats en la agenda.");
+        }
+    }
 }
