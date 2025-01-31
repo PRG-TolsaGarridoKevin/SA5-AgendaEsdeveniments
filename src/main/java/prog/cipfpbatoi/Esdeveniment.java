@@ -9,7 +9,6 @@ public class Esdeveniment {
         this.tipusEsdeveniment = tipusEsdeveniment;
         this.notaDescriptiva = notaDescriptiva;
         this.fechaEsdeveniment = fechaEsdeveniment;
-        long diasRestantes = this.fechaEsdeveniment.getDiesDeDiferencia(fechaEsdeveniment);
     }
     
     public Esdeveniment(TipusEsdeveniment tipusEsdeveniment, String notaDescriptiva, String ubicacion, Data fechaEsdeveniment) {
@@ -17,20 +16,19 @@ public class Esdeveniment {
         this.notaDescriptiva = notaDescriptiva;
         this.ubicacion = ubicacion;
         this.fechaEsdeveniment = fechaEsdeveniment;
-        long diasRestantes = this.fechaEsdeveniment.getDiesDeDiferencia(fechaEsdeveniment);
     }
 
     public Esdeveniment(TipusEsdeveniment tipusEsdeveniment, String notaDescriptiva, String ubicacion) {
         this.tipusEsdeveniment = tipusEsdeveniment;
         this.notaDescriptiva = notaDescriptiva;
         this.ubicacion = ubicacion;
-        this.fechaEsdeveniment = fechaEsdeveniment;
-        long diasRestantes = 30;
+        this.fechaEsdeveniment = new Data();
+        this.fechaEsdeveniment.afegir(30);
     }
     
     
     
-    public static void mostrarEsdeveniment(Esdeveniment esdeveniment){
+    public void mostrarEsdeveniment(Esdeveniment esdeveniment){
         Data fechaActual = new Data();
         if (esdeveniment.fechaEsdeveniment.esPosteriorA(fechaActual)) {
            
@@ -42,18 +40,35 @@ public class Esdeveniment {
         }
     }
     
-    public static void substituir(Esdeveniment esdeveniment, long dias){
+    public void substituir(Esdeveniment esdeveniment, long dias){
         if (dias < 0) {
-            esdeveniment.fechaEsdeveniment.restar(dias);
+            esdeveniment.fechaEsdeveniment.restar(Math.abs(dias));
         }else{
             esdeveniment.fechaEsdeveniment.afegir(dias);
         }
         System.out.println("Cambio de fecha realizado correctamente");
     }
     
+    public static void determinarProximitat(Esdeveniment esdevenimentActual,Esdeveniment esdevenimentProporcionat, Data fecha){
+        long diasEsdeveniment1 = esdevenimentActual.fechaEsdeveniment.getDiesDeDiferencia(fecha);
+        long diasEsdeveniment2 = esdevenimentProporcionat.fechaEsdeveniment.getDiesDeDiferencia(fecha);
+        
+        if (diasEsdeveniment1 < diasEsdeveniment2) {
+            System.out.println("El primer esdeveniment (actual) es el mes proxim a la data instroduida");
+        }else{
+            System.out.println("El segon esdeveniment proporcionat es el mes proxim a la data instroduida");
+        } 
+    }
+    
+    public boolean esDespuesDe(Data fecha){
+        return this.fechaEsdeveniment.esPosteriorA(fecha);
+    }
     
     
-    
+    public static boolean determinarEsdevenimentFinalitzat(Esdeveniment esdevenimentActual){
+        Data fechaActual = new Data();
+        return !esdevenimentActual.fechaEsdeveniment.esPosteriorA(fechaActual);
+    }
     
     
 }
