@@ -3,7 +3,7 @@ public class Esdeveniment {
     private TipusEsdeveniment tipusEsdeveniment;
     private String notaDescriptiva;
     private String ubicacion;
-    private Data fechaEsdeveniment;
+    public Data fechaEsdeveniment;
     
     public Esdeveniment(TipusEsdeveniment tipusEsdeveniment, String notaDescriptiva, Data fechaEsdeveniment) {
         this.tipusEsdeveniment = tipusEsdeveniment;
@@ -49,7 +49,7 @@ public class Esdeveniment {
         System.out.println("Cambio de fecha realizado correctamente");
     }
     
-    public static void determinarProximitat(Esdeveniment esdevenimentActual,Esdeveniment esdevenimentProporcionat, Data fecha){
+    public void determinarProximitat(Esdeveniment esdevenimentActual,Esdeveniment esdevenimentProporcionat, Data fecha){
         long diasEsdeveniment1 = esdevenimentActual.fechaEsdeveniment.getDiesDeDiferencia(fecha);
         long diasEsdeveniment2 = esdevenimentProporcionat.fechaEsdeveniment.getDiesDeDiferencia(fecha);
         
@@ -60,12 +60,12 @@ public class Esdeveniment {
         } 
     }
     
-    public boolean esDespuesDe(Data fecha){
+    public boolean esAntesDe(Data fecha){
         return this.fechaEsdeveniment.esPosteriorA(fecha);
     }
     
     
-    public static boolean determinarEsdevenimentFinalitzat(Esdeveniment esdevenimentActual){
+    public boolean determinarEsdevenimentFinalitzat(Esdeveniment esdevenimentActual){
         Data fechaActual = new Data();
         return !esdevenimentActual.fechaEsdeveniment.esPosteriorA(fechaActual);
     }
