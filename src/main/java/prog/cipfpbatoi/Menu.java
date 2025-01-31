@@ -26,8 +26,7 @@ public class Menu {
                     break;
                 case 2:
                     agenda.cercarEsdeveniment(demanarData());
-                    //Confirmacion para editar la fecha de un evento
-                    //Si dice que si se cambia
+                    cambiarData();
                     break;
                 case 3:
                     agenda.mostrarEsdeveniments();
@@ -66,6 +65,14 @@ public class Menu {
         int mes = GestorIO.llegirEnter("Introdueix el mes: ");
         int any = GestorIO.llegirEnter("Introdueix el any: ");
         Data fecha = new Data(dia, mes, any);
-        return fecha;
+       return fecha;
     }
+    
+    private void cambiarData(){
+        boolean confirmacion = GestorIO.solicitarConfirmacio("\nVols modificar la data? [S/N]: ");
+                    if (confirmacion) {
+                        
+                    }
+    }
+    
 }

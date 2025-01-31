@@ -45,25 +45,31 @@ public class Agenda {
         System.out.println("Esdeveniment afegit correctament");
     }
 
-    public Esdeveniment cercarEsdeveniment(Data fecha) {
+    public void cercarEsdeveniment(Data fecha) {
         Esdeveniment esdevenimentResultat = null;
 
         if (esdeveniment1 != null && (esdeveniment1.fechaEsdeveniment.isIgual(fecha) || esdeveniment1.fechaEsdeveniment.esPosteriorA(fecha))) {
             esdevenimentResultat = esdeveniment1;
+            System.out.println("");
+            esdeveniment1.mostrarEsdeveniment(esdeveniment1);
         }
 
         if (esdeveniment2 != null && (esdeveniment2.fechaEsdeveniment.isIgual(fecha) || esdeveniment2.fechaEsdeveniment.esPosteriorA(fecha))) {
             if (esdevenimentResultat == null || esdeveniment2.fechaEsdeveniment.esPosteriorA(esdevenimentResultat.fechaEsdeveniment)) {
                 esdevenimentResultat = esdeveniment2;
+                System.out.println("");
+                esdeveniment2.mostrarEsdeveniment(esdeveniment2);
             }
         }
 
         if (esdeveniment3 != null && (esdeveniment3.fechaEsdeveniment.isIgual(fecha) || esdeveniment3.fechaEsdeveniment.esPosteriorA(fecha))) {
             if (esdevenimentResultat == null || esdeveniment3.fechaEsdeveniment.esPosteriorA(esdevenimentResultat.fechaEsdeveniment)) {
                 esdevenimentResultat = esdeveniment3;
+                System.out.println("");
+                esdeveniment3.mostrarEsdeveniment(esdeveniment3);
             }
         }
-        return esdevenimentResultat;
+        
     }
 
     public void mostrarEsdeveniments() {
