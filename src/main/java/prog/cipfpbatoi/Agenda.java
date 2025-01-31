@@ -13,7 +13,7 @@ public class Agenda {
     }
 
     public void afegirEsdeveniment(Esdeveniment nouEsdeveniment) {
-        if (nouEsdeveniment.determinarEsdevenimentFinalitzat(esdeveniment1)) {
+        if (nouEsdeveniment.determinarEsdevenimentFinalitzat()) {
             System.out.println("No se puede añadir un evento finalizado");
             return;
         }
@@ -26,10 +26,10 @@ public class Agenda {
         } else {
             Esdeveniment mesAntic = esdeveniment1;
 
-            if (esdeveniment2 != null && esdeveniment2.esAntesDe(mesAntic.fechaEsdeveniment)) {
+            if (esdeveniment2 != null && !esdeveniment2.esAntesDe(mesAntic.fechaEsdeveniment)) {
                 mesAntic = esdeveniment2;
             }
-            if (esdeveniment3 != null && esdeveniment3.esAntesDe(mesAntic.fechaEsdeveniment)) {
+            if (esdeveniment3 != null && !esdeveniment3.esAntesDe(mesAntic.fechaEsdeveniment)) {
                 mesAntic = esdeveniment3;
             }
 
@@ -40,7 +40,7 @@ public class Agenda {
             } else {
                 esdeveniment3 = nouEsdeveniment;
             }
-            System.out.println("La agenda estaba plena. es a reemplatzat el event mes antic");
+            System.out.println("La agenda estaba plena, es a reemplatzat el event mes antic");
         }
         System.out.println("Esdeveniment afegit correctament");
     }
@@ -70,23 +70,23 @@ public class Agenda {
         boolean hayEventos = false;
 
         if (esdeveniment1 != null) {
-            System.out.print("Esdeveniment 1: ");
+            System.out.print("\nEsdeveniment 1: ");
             esdeveniment1.mostrarEsdeveniment(esdeveniment1);
             hayEventos = true;
         }
         if (esdeveniment2 != null) {
-            System.out.print("Esdeveniment 2: ");
+            System.out.print("\nEsdeveniment 2: ");
             esdeveniment2.mostrarEsdeveniment(esdeveniment2);
             hayEventos = true;
         }
         if (esdeveniment3 != null) {
-            System.out.print("Esdeveniment 3: ");
+            System.out.print("\nEsdeveniment 3: ");
             esdeveniment3.mostrarEsdeveniment(esdeveniment3);
             hayEventos = true;
         }
 
         if (!hayEventos) {
-            System.out.println("No hi ha esdeveniments registrats en la agenda");
+            System.out.println("\nNo hi ha esdeveniments registrats en la agenda");
         }
     }
 }

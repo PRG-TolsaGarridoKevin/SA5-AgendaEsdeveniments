@@ -6,13 +6,13 @@ import java.util.StringTokenizer;
 
 public class Data {
     
-    private String DILLUNS = "Dilluns";
-    private String DIMARTS = "Dimarts";
-    private String DIMECRES = "Dimecres";
-    private String DIJOUS = "Dijous";
-    private String DIVENDRES = "Divendres";
-    private String DISSABTE = "Dissabte";
-    private String DIUMENGE = "Diumenge";
+    private final String DILLUNS = "Dilluns";
+    private final String DIMARTS = "Dimarts";
+    private final String DIMECRES = "Dimecres";
+    private final String DIJOUS = "Dijous";
+    private final String DIVENDRES = "Divendres";
+    private final String DISSABTE = "Dissabte";
+    private final String DIUMENGE = "Diumenge";
 
     private int dia;
     private int mes;
@@ -123,19 +123,18 @@ public class Data {
     }
     
     public String getDiaSetmana() {
-        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
-    int diaSemana = fecha.get(Calendar.DAY_OF_WEEK);
-
-    switch (diaSemana) {
-        case Calendar.MONDAY: return DILLUNS;
-        case Calendar.TUESDAY: return DIMARTS;
-        case Calendar.WEDNESDAY: return DIMECRES;
-        case Calendar.THURSDAY: return DIJOUS;
-        case Calendar.FRIDAY: return DIVENDRES;
-        case Calendar.SATURDAY: return DISSABTE;
-        case Calendar.SUNDAY: return DIUMENGE;
-        default: return "Dia no encontrado";
-        }
+      int diasTranscurridos = getDiesTranscorregutsOrigen();
+      int diaSemana = diasTranscurridos % 7;
+    return switch (diaSemana) {
+        case 0 -> DILLUNS;
+        case 1 -> DIMARTS;
+        case 2 -> DIMECRES;
+        case 3 -> DIJOUS;
+        case 4 ->  DIVENDRES;
+        case 5 -> DISSABTE;
+        case 6 -> DIUMENGE;
+        default -> "Dia no encontrado";
+        };
     }
 
     public boolean isFestiu() {
@@ -148,40 +147,80 @@ public class Data {
     }
 
     public int getNumeroSetmana() {
-        int diasTranscurridos = getDiesTranscorregutsEnAny();
-        Calendar fechaInicio = new GregorianCalendar(this.any, Calendar.JANUARY, 1);
-        int primerDiaDeLaSemana = fechaInicio.get(Calendar.DAY_OF_WEEK) -1;
-        int primerLunes = (primerDiaDeLaSemana == 0)?1:(8-primerDiaDeLaSemana);
-        if (diasTranscurridos < primerLunes) {
-            return 1;
-        }   
-        return ((diasTranscurridos - primerLunes) / 7 ) +2;
+        Data iniciAny = new Data(1, 1, this.any);
+        String primerDiaSetmana = iniciAny.getDiaSetmana();
+
+        int primerDiaNum = switch (primerDiaSetmana) {
+            case DILLUNS ->
+                1;
+            case DIMARTS ->
+                2;
+            case DIMECRES ->
+                3;
+            case DIJOUS ->
+                4;
+            case DIVENDRES ->
+                5;
+            case DISSABTE ->
+                6;
+            case DIUMENGE ->
+                7;
+            default ->
+                0;
+        };
+
+        int diesTranscorreguts = getDiesTranscorregutsEnAny();
+
+        int numeroSetmana = (diesTranscorreguts + primerDiaNum - 1) / 7 + 1;
+
+        return numeroSetmana;
     }
 
-    public Data afegir(long numDias) {
-        if (numDias <= 0) {
-            return new Data();
+    public Data afegir(long dies) {
+        if (dies < 0) {
+            return this;
         }
-        
-        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
-        fecha.add(Calendar.DAY_OF_MONTH, (int) numDias);
-
-        return new Data(fecha.get(Calendar.DAY_OF_MONTH), 
-                        fecha.get(Calendar.MONTH) + 1, 
-                        fecha.get(Calendar.YEAR));
+        Data novaData = this.copy();
+        while (dies > 0) {
+            int diesMes = getDiesMes(novaData.mes, novaData.any);
+            if (novaData.dia + dies > diesMes) {
+                dies -= (diesMes - novaData.dia + 1);
+                novaData.dia = 1;
+                if (novaData.mes == 12) {
+                    novaData.mes = 1;
+                    novaData.any++;
+                } else {
+                    novaData.mes++;
+                }
+            } else {
+                novaData.dia += dies;
+                dies = 0;
+            }
+        }
+        return novaData;
     }
 
-    public Data restar(long numDias) {
-        if (numDias <= 0) {
-            return new Data();
+    public Data restar(long dies) {
+        if (dies < 0) {
+            return this;
         }
-        
-        Calendar fecha = new GregorianCalendar(this.any, this.mes - 1, this.dia);
-        fecha.add(Calendar.DAY_OF_MONTH, (int) -numDias);
-
-        return new Data(fecha.get(Calendar.DAY_OF_MONTH), 
-                        fecha.get(Calendar.MONTH) + 1, 
-                        fecha.get(Calendar.YEAR));
+        Data novaData = this.copy();
+        while (dies > 0) {
+            if (novaData.dia - dies < 1) {
+                dies -= novaData.dia;
+                if (novaData.mes == 1) {
+                    novaData.mes = 12;
+                    novaData.any--;
+                } else {
+                    novaData.mes--;
+                }
+                novaData.dia = getDiesMes(novaData.mes, novaData.any);
+            } else {
+                novaData.dia -= dies;
+                dies = 0;
+            }
+        }
+        return novaData;
     }
 
     public boolean isCorrecta() {

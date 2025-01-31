@@ -7,16 +7,17 @@ public class GestorIO {
     
     public static int llegirEnter(String missatge){
         System.out.println(missatge);
-        while (!scanner.hasNextInt()) {
-            System.out.println("Error: introdueix un numero enter.");
-            scanner.next(); 
+        while(!scanner.hasNextInt()){
+            System.out.println("Introduex un nombre enter: ");
+            scanner.hasNextInt();
         }
-        return scanner.nextInt();
+        int numeroDias = scanner.nextInt();
+        scanner.nextLine();
+        return numeroDias;
     }
     
     public static String llegirText(String missatge){
         System.out.println(missatge);
-        scanner.nextLine();
         return scanner.nextLine();
     }
   

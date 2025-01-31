@@ -1,29 +1,33 @@
 package prog.cipfpbatoi;
+
 public class Menu {
+
     private Agenda agenda;
-    
-    public Menu(){
+
+    public Menu() {
         this.agenda = new Agenda();
     }
-    
-    public void iniciar(){
+
+    public void iniciar() {
         boolean salir = false;
-        
+
         while (!salir) {
-        System.out.println("\n----- MENÚ D'OPCIONS -----");
-        System.out.println("1. Crear nou esdeveniment");
-        System.out.println("2. Buscar esdeveniment per data (i editar data)");
-        System.out.println("3. Mostrar l'estat actual de l'agenda");
-        System.out.println("4. Eixir");
+            System.out.println("\n\n----- MENÚ D'OPCIONS -----");
+            System.out.println("1. Crear nou esdeveniment");
+            System.out.println("2. Buscar esdeveniment per data (i editar data)");
+            System.out.println("3. Mostrar l'estat actual de l'agenda");
+            System.out.println("4. Eixir");
 
-        int opcionSeleccionada = GestorIO.llegirEnter("Selecciona una opció[1-4]: ");
+            int opcionSeleccionada = GestorIO.llegirEnter("Selecciona una opció[1-4]: ");
 
-         switch (opcionSeleccionada) {
+            switch (opcionSeleccionada) {
                 case 1:
                     agenda.afegirEsdeveniment(crearNouEsdeveniment());
                     break;
                 case 2:
                     agenda.cercarEsdeveniment(demanarData());
+                    //Confirmacion para editar la fecha de un evento
+                    //Si dice que si se cambia
                     break;
                 case 3:
                     agenda.mostrarEsdeveniments();
@@ -35,30 +39,29 @@ public class Menu {
                 default:
                     System.out.println("Opcion no valida torna a intentar");
             }
-        
+
         }
         GestorIO.tancar();
     }
-    
-    
-    private Esdeveniment crearNouEsdeveniment(){
+
+    private Esdeveniment crearNouEsdeveniment() {
         String tipoString = GestorIO.llegirText("De que tipus es ? [Aniversari, Festiu, Especial, Altres]:  ");
-        TipusEsdeveniment tipusEsd = TipusEsdeveniment.valueOf(tipoString.toUpperCase());   
+        TipusEsdeveniment tipusEsd = TipusEsdeveniment.stringToEnum(tipoString);
         String descripcion = GestorIO.llegirText("Introdueix una nota descriptiva: ");
         String ubicacion = GestorIO.llegirText("Afegeix una ubicacion (Opcional, deixa buit si no): ");
         int diasRestantes = GestorIO.llegirEnter("Afegeix els dies que falten fins el esdeveniment: ");
         Data fecha = new Data().afegir(diasRestantes);
-        
+
         if (ubicacion == null) {
             Esdeveniment eventoSinUbicacion = new Esdeveniment(tipusEsd, descripcion, fecha);
             return eventoSinUbicacion;
-        }else{
+        } else {
             Esdeveniment eventoConUbicacion = new Esdeveniment(tipusEsd, descripcion, ubicacion, fecha);
             return eventoConUbicacion;
         }
     }
 
-    private Data demanarData(){
+    private Data demanarData() {
         int dia = GestorIO.llegirEnter("Introdueix el dia: ");
         int mes = GestorIO.llegirEnter("Introdueix el mes: ");
         int any = GestorIO.llegirEnter("Introdueix el any: ");
